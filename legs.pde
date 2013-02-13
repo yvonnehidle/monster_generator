@@ -21,8 +21,7 @@ void drawMe()
   // roll a random number to the number of legs
   int rollNumber = int( random(1,4) );
   //println(rollNumber);
-  println(legY);
-  
+  //println(legY);
   
   
   // FOR MY REFERENCE, AGAIN!
@@ -33,7 +32,6 @@ void drawMe()
 //    point(20,20);
 //    aLeg(20,20);
 //  popStyle();
-  
   
    
   // FOUR LEGS
@@ -92,9 +90,9 @@ void aLeg(float posX, float posY)
     float x1 = 0;
     float y1 = 0;
   // all the x values
-    float x2 = random(0,20);
-    float x3 = random(0,20);
-    float x4 = random(0,20);
+    float x2 = random(0,30);
+    float x3 = random(-10,30);
+    float x4 = random(-20,30);
   // all the y values
     float y2 = 0;
     float y3 = random(120,200);

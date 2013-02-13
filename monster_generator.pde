@@ -78,7 +78,7 @@ void draw()
   }
   
   // we don't want black so please reroll
-  if(randomC1<20 && randomC2<20 && randomC3<20)
+  if(randomC1<30 && randomC2<30 && randomC3<30)
   {
     randomC1 = int( random(0,300) );
     randomC2 = int( random(0,300) );
@@ -115,7 +115,7 @@ void mousePressed()
   pushMatrix();
     filter(GRAY);
     filter(BLUR,2);
-    translate(-2,-2);
+    translate(-1,-1);
     myEars.drawMe();
     //myTail.drawMe();
     myLegs.drawMe();
@@ -126,16 +126,16 @@ void mousePressed()
   
   
   // FOR MY REFERENCE
-//  pushStyle();
-//    noFill();
-//    stroke(0);
-//    strokeWeight(5);
+  pushStyle();
+    noFill();
+    stroke(0);
+    strokeWeight(5);
 //    point(bodyX,bodyY);
 //    point(headX,headY);
 //    point(eyesX,eyesY);
 //    point(earsX,earsY);
 //    point(tailX,tailY);
 //    point(legX,legY);
-//  popStyle();
+  popStyle();
 }
 /*--------------------------------------------------------------------------------*/
