@@ -67,15 +67,14 @@ void drawMe()
 
 /*--------------------------------------------------------------------------------*/
 void antlers(int depth)
-{ 
+{  
   // LOCAL VARIABLES
-  // variables that change
   float branchRot1 = random(0, 1);
   float branchRot2 = random(-1,1);
   float antlerWidth1 = random(20,50);
   float antlerWidth2 = random(30,80);
-  
-  
+    
+    
   pushStyle();
     // tree branch style
     strokeWeight( random (.5, 2) );
@@ -93,7 +92,7 @@ void antlers(int depth)
       translate(0,-antlerWidth1); // move the tree
       rotate(branchRot1); // then rotate the branches
       scale(.6); 
-      antlers(depth + 1);
+      antlers(depth+1);
       popMatrix();
       
       // height of tree
@@ -101,11 +100,10 @@ void antlers(int depth)
       translate(0,-antlerWidth2); // move the tree
       rotate(branchRot2); // then rotatet the branches
       scale(0.6);
-      antlers(depth + 1);
+      antlers(depth+1);
       popMatrix();
     }
   popStyle();
-  
 }
 /*--------------------------------------------------------------------------------*/
 

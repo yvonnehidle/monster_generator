@@ -30,14 +30,9 @@ paperImg = loadImage("paperbg.png");
 /*--------------------------------------------------------------------------------*/
 // DRAW THE HEAD HERE
 /*--------------------------------------------------------------------------------*/
-void drawMe()
+void drawMe(float numPoints, float noiseFactor, float shapeSize)
 {   
-  // LOCAL VARIABLES
-  // variables that change
-  float numPoints = random(10, 300);                    // the higher the number the more wiggly
-  float noiseFactor = random(0, 5);                    // the higher the number the more spikey
-  float shapeSize = random(20,35);
-  
+  // LOCAL VARIABLES 
   // variables that don't change
   float rot = radians(360)/numPoints;
   float innerRadZero = 0;
@@ -54,7 +49,7 @@ void drawMe()
   
   // color and stroke
   noStroke();
-  tint(randomC1,randomC2,randomC3);
+  tint(randomC1-50,randomC2,randomC3);
   PImage paper = loadImage("paperbg2.png");
   
   // draw shape of head

@@ -17,14 +17,11 @@ body()
 
 
 /*--------------------------------------------------------------------------------*/
-void drawMe()
+// DRAW THE BODY HERE
+/*--------------------------------------------------------------------------------*/
+void drawMe(float numPoints, float noiseFactor, float shapeSize)
 { 
   // LOCAL VARIABLES
-  // variables that change
-  float numPoints = random(10, 300);                    // the higher the number the more wiggly
-  float noiseFactor = random(0, 5);                    // the higher the number the more spikey
-  float shapeSize = random(50,65);
-  
   // variables that don't change
   float rot = radians(360)/numPoints;
   float innerRadZero = 0;
@@ -49,6 +46,7 @@ void drawMe()
   
   // move head to correct position
   translate(bodyX, bodyY);
+  scale(1.2,.75);
   
   // color and stroke
   noStroke();

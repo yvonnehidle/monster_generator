@@ -14,18 +14,13 @@ eyes()
 
 
 /*--------------------------------------------------------------------------------*/
-void drawMe()
+void drawMe(float n1, float n2, float rollNumber)
 {
-  // roll a random number to determine eyes
-  int rollNumber = int( random(1,5) );
-  float n1 = random(5,15);
-  float n2 = random(3,18);
-  
   rectMode(CENTER);
-  //println(rollNumber);
-  
   pushMatrix();
   translate(eyesX,eyesY);
+  
+  
   
     // CIRCLE (1)
     if(rollNumber == 1)

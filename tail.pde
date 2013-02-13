@@ -19,56 +19,26 @@ void drawMe()
   // roll a random number to determine eyes
   int rollNumber = int( random(1,5) );
   
+  // random variables
+  float x1 = 0;
+  float y1 = 0;
+  float x2 = random(0,50);
+  float y2 = random(50,100);
+  float x3 = random(0,50);
+  float y3 = random(100,200);
+  float x4 = random(0,50);
+  float y4 = random(100,200);
+  
   pushMatrix();
-      translate(tailX, tailY);
-      tail(0);
+    pushStyle();
+        translate(tailX+100, tailY-100);
+        strokeWeight(10);
+        stroke(randomC1-100,randomC2,randomC3);
+        curve(x1, y1, x2, y2, x3, y3, x4, y4);
+    popStyle();
   popMatrix();
 }
 /*--------------------------------------------------------------------------------*/
 
-
-/*--------------------------------------------------------------------------------*/
-void tail(int depth)
-{ 
-  // LOCAL VARIABLES
-  // variables that change
-  float branchRot1 = noise( random(0,180) );
-  float branchRot2 = noise( random(-180,0) );
-  float tailWidth1 = 20;
-  float tailWidth2 = 150;
-  
-  
-  pushStyle();
-    // tree branch style
-    strokeWeight( random (.5, 2) );
-    stroke(randomC1-100,randomC2,randomC3);
-    strokeCap(ROUND);
-    
-    // this is the tree trunk
-    line(0,0,tailWidth2,0);
-    
-    // all recursive functions must have an exit condition
-    // when the depth is less than 10, depth is 0
-    if (depth < 8) 
-    {
-      pushMatrix(); // save the current state of the transformation
-      translate(tailWidth1,0); // move the tree
-      rotate(branchRot1); // then rotate the branches
-      scale(.6); 
-      tail(depth + 1);
-      popMatrix();
-      
-      // height of tree
-      pushMatrix(); // save the current state of the transformation
-      translate(tailWidth2,0); // move the tree
-      rotate(branchRot2); // then rotatet the branches
-      scale(.4);
-      tail(depth + 1);
-      popMatrix();
-    }
-  popStyle();
-  
-}
-/*--------------------------------------------------------------------------------*/
 
 }
