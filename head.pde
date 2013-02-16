@@ -49,19 +49,17 @@ void drawMe(float numPoints, float noiseFactor, float shapeSize)
   
   // color and stroke
   noStroke();
-  tint(randomC1-50,randomC2,randomC3);
-  PImage paper = loadImage("paperbg2.png");
+  fill(randomC1-50,randomC2,randomC3);
   
   // draw shape of head
   beginShape();
-  texture(paperImg);
       
       for (int i=0; i<numPoints; i++) 
       {
         float angle = i*rot;
         float x = cos(angle);
         float y = sin(angle);
-        float innerRad = shapeSize + noise(i*noiseFactor, frameCount*0.01) * shapeSize*2;
+        float innerRad = shapeSize + noise(i*noiseFactor, frameCount*0.01) * shapeSize;
         if (i == 0) 
         {
           innerRadZero = innerRad;
@@ -71,10 +69,7 @@ void drawMe(float numPoints, float noiseFactor, float shapeSize)
           float perc = map(i, numPoints*barrier, numPoints, 0, 1);
           innerRad = lerp(innerRad, innerRadZero, perc);
         }
-        vertex(x*innerRad, y*innerRad,0,0);
-        vertex(x*innerRad, y*innerRad,300,0);
-        vertex(x*innerRad, y*innerRad,300,300);
-        vertex(x*innerRad, y*innerRad,0,300);
+        vertex(x*innerRad, y*innerRad);
       }
       
   endShape();

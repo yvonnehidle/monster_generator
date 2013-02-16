@@ -10,7 +10,6 @@ class ears
 {
   float headXref;
   float headYref;
-
   
 
 /*--------------------------------------------------------------------------------*/
@@ -21,14 +20,8 @@ ears()
 
 
 /*--------------------------------------------------------------------------------*/
-void drawMe()
+void drawMe(float rollNumber)
 { 
-  
-  // roll a random number to determine eyes
-  int rollNumber = int( random(1,5) );
-  println(rollNumber);
-  
-
   
   // CIRCLE EARS (1)
   if(rollNumber == 1)
@@ -102,7 +95,7 @@ void circleEars()
           translate(earsX-20, earsY);
           // EAR ATTACHMENT
           noFill();
-          strokeWeight(2);
+          strokeWeight( random(1,3) );
           stroke(randomC1-100,randomC2,randomC3);
           curve(x1, y1, x2, y2, x3, y3, x4, y4);
           
@@ -117,7 +110,7 @@ void circleEars()
           scale(-1,1);
           // EAR ATTACHMENT
           noFill();
-          strokeWeight(2);
+          strokeWeight( random(1,3) );
           stroke(randomC1-100,randomC2,randomC3);
           curve(x1, y1, x2b, y2, x3b, y3b, x4b, y4b);
           
