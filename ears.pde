@@ -6,7 +6,7 @@ CREDITS
   - http://www.openprocessing.org/sketch/7150
   - http://processing.org/learning/topics/tree.html
 --------------------------------------------------------------------------------*/
-class ears
+class ears extends body
 {
   float headXref;
   float headYref;
@@ -22,10 +22,29 @@ ears()
 /*--------------------------------------------------------------------------------*/
 void drawMe(int rollNumber, float branchRot1, float branchRot2, float antlerWidth1, float antlerWidth2)
 { 
-   
+  //println(rollNumber);
+  
+  
+  
   // TREE-LIKE ANTLERS, 2 SETS (3)
   if(rollNumber == 1)
   {
+   // STRETCHY STRETCHY SQUASH
+    if(body_location.y+body_shapeSize > height && switchDirection == false)
+    {
+    pushMatrix();
+      translate(earsX-20, earsY);
+      scale(1,.8);
+      antlers(0, branchRot1, branchRot2, antlerWidth1, antlerWidth2);
+    popMatrix();
+    pushMatrix();
+      translate(earsX+20, earsY);
+      scale(-1,.8);
+      antlers(0, branchRot1, branchRot2, antlerWidth1, antlerWidth2);
+    popMatrix();     
+    }
+    else
+    {
     pushMatrix();
       translate(earsX-20, earsY);
       antlers(0, branchRot1, branchRot2, antlerWidth1, antlerWidth2);
@@ -35,16 +54,33 @@ void drawMe(int rollNumber, float branchRot1, float branchRot2, float antlerWidt
       scale(-1,1);
       antlers(0, branchRot1, branchRot2, antlerWidth1, antlerWidth2);
     popMatrix();
+    }
   }
+  
+  
   
   // TREE-LIKE ANTLERS, 1 SET (4)
   else if(rollNumber == 2)
   {
+    // STRETCHY STRETCHY SQUASH
+    if(body_location.y+body_shapeSize > height && switchDirection == false)
+    {
+    pushMatrix();
+      translate(earsX, earsY);
+      scale(1,.8);
+      antlers(0, branchRot1, branchRot2, antlerWidth1, antlerWidth2);
+    popMatrix();      
+    }
+    else
+    {
     pushMatrix();
       translate(earsX, earsY);
       antlers(0, branchRot1, branchRot2, antlerWidth1, antlerWidth2);
     popMatrix();
+    }
   }
+  
+  
   
 }
 /*--------------------------------------------------------------------------------*/

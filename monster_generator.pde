@@ -49,7 +49,6 @@ MONSTER GENERATOR
   float ears_branchRot2;
   float ears_antlerWidth1;
   float ears_antlerWidth2;
-    
 // roll a random color
   int randomC1;
   int randomC2;
@@ -62,7 +61,7 @@ void setup()
 {    
   size(800, 600);
   smooth();
-  frameRate(20);
+  frameRate(60);
   
   
   // IMAGES
@@ -90,7 +89,7 @@ void setup()
     eyes_rollNumber = int( random(1,5) );
   // ears
     myEars = new ears();
-    ears_rollNumber = int( random(1,2) );
+    ears_rollNumber = int( random(1,3) );
     earsX = body_location.x-10;
     earsY = body_location.y-40;
     ears_branchRot1 = random(0, 1);
@@ -194,6 +193,8 @@ void drawMonster()
   // ears
     earsX = body_location.x-10;
     earsY = body_location.y-40;
+    ears_branchRot1 = sin( radians(frameCount) );
+    ears_branchRot2 = cos( radians(frameCount) );
 }
 /*--------------------------------------------------------------------------------*/
 
@@ -230,11 +231,18 @@ void mouseDragged()
     // body
       body_location.x = mouseX-xOffset; 
       body_location.y = mouseY-yOffset; 
-      body_fluff = 0; 
+      body_fluff = -5; 
     // eyes
       eyesX = body_location.x;
       eyesY = body_location.y-10;
-  }
+   // ears
+      earsX = body_location.x-10;
+      earsY = body_location.y-40;
+      ears_branchRot1 = sin( radians(frameCount) );
+      ears_branchRot2 = cos( radians(frameCount) );
+      ears_antlerWidth1 = ears_antlerWidth1 + 0.1;
+      ears_antlerWidth2 = ears_antlerWidth2 + 0.1;
+  }  
 }
 
 
@@ -284,7 +292,7 @@ void generateNew()
     eyes_n2 = random(35,50);
     eyes_rollNumber = int( random(1,5) );
   // ears
-    ears_rollNumber = int( random(1,2) );
+    ears_rollNumber = int( random(1,3) );
     ears_branchRot1 = random(0, 1);
     ears_branchRot2 = random(-1,1);
     ears_antlerWidth1 = random(20,50);

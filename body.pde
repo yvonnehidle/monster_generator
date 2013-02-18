@@ -135,14 +135,17 @@ void drawMe(float numPoints, float noiseFactor, float shapeSize, float fluff)
   // STRETCHY STRETCHY SQUASH
   if(body_location.y+shapeSize > height && switchDirection == false)
   {
-    //stretchFactorY = stretchFactorY - 0.05;
-    stretchFactorY = stretchFactorY - abs(0.005*body_velocity.y);
+    //stretchFactorY = stretchFactorY - 0.005;
     //stretchFactorY = (0.1*body_velocity.y)/stretchFactorY;
+    stretchFactorY = stretchFactorY - (abs(body_velocity.y)/stretchFactorY/200);
+    //stretchFactorY = stretchFactorY - ( abs( sqrt(body_velocity.y)/10 ) );
   }
   else if(body_location.y+shapeSize > height && switchDirection == true && stretchFactorY < 1)
   {
-    //stretchFactorY = stretchFactorY + 0.05;
-    stretchFactorY = stretchFactorY + abs(0.005*body_velocity.y);
+    //stretchFactorY = stretchFactorY + 0.005;
+    //stretchFactorY = stretchFactorY + abs(0.005*body_velocity.y);
+    stretchFactorY = stretchFactorY + (abs(body_velocity.y)/stretchFactorY/200);
+    //stretchFactorY = stretchFactorY + ( abs( sqrt(body_velocity.y)/10 ) );
   }
   println(body_velocity.y + " || " + stretchFactorY);
 
