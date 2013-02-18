@@ -42,9 +42,14 @@ MONSTER GENERATOR
   int eyes_rollNumber;
 // control the position of the ears
   ears myEars;
+  int ears_rollNumber;
   float earsX;
   float earsY;
-  int ears_rollNumber;
+  float ears_branchRot1;
+  float ears_branchRot2;
+  float ears_antlerWidth1;
+  float ears_antlerWidth2;
+    
 // roll a random color
   int randomC1;
   int randomC2;
@@ -85,9 +90,14 @@ void setup()
     eyes_rollNumber = int( random(1,5) );
   // ears
     myEars = new ears();
+    ears_rollNumber = int( random(1,2) );
     earsX = body_location.x-10;
-    earsY = body_location.y-10;
-    ears_rollNumber = int( random(1,5) );
+    earsY = body_location.y-40;
+    ears_branchRot1 = random(0, 1);
+    ears_branchRot2 = random(-1,1);
+    ears_antlerWidth1 = random(20,50);
+    ears_antlerWidth2 = random(30,80);
+    
     
     
     
@@ -172,7 +182,7 @@ void drawMonster()
 
 
   // DRAW MONSTER PARTS
-  //myEars.drawMe(ears_rollNumber);
+  myEars.drawMe(ears_rollNumber, ears_branchRot1, ears_branchRot2, ears_antlerWidth1, ears_antlerWidth2);
   myBody.drawMe(body_numPoints, body_noiseFactor, body_shapeSize, body_fluff);
   myEyes.drawMe(eyes_n1, eyes_n2, eyes_rollNumber);
   
@@ -183,7 +193,7 @@ void drawMonster()
     eyesY = body_location.y-10;
   // ears
     earsX = body_location.x-10;
-    earsY = body_location.y-10;
+    earsY = body_location.y-40;
 }
 /*--------------------------------------------------------------------------------*/
 
@@ -274,6 +284,10 @@ void generateNew()
     eyes_n2 = random(35,50);
     eyes_rollNumber = int( random(1,5) );
   // ears
-    ears_rollNumber = int( random(1,5) );
+    ears_rollNumber = int( random(1,2) );
+    ears_branchRot1 = random(0, 1);
+    ears_branchRot2 = random(-1,1);
+    ears_antlerWidth1 = random(20,50);
+    ears_antlerWidth2 = random(30,80);
 }
 /*--------------------------------------------------------------------------------*/

@@ -135,12 +135,16 @@ void drawMe(float numPoints, float noiseFactor, float shapeSize, float fluff)
   // STRETCHY STRETCHY SQUASH
   if(body_location.y+shapeSize > height && switchDirection == false)
   {
-    stretchFactorY = stretchFactorY - 0.05;
+    //stretchFactorY = stretchFactorY - 0.05;
+    stretchFactorY = stretchFactorY - abs(0.005*body_velocity.y);
+    //stretchFactorY = (0.1*body_velocity.y)/stretchFactorY;
   }
   else if(body_location.y+shapeSize > height && switchDirection == true && stretchFactorY < 1)
   {
-    stretchFactorY = stretchFactorY + 0.05;
+    //stretchFactorY = stretchFactorY + 0.05;
+    stretchFactorY = stretchFactorY + abs(0.005*body_velocity.y);
   }
+  println(body_velocity.y + " || " + stretchFactorY);
 
 
   // BEGIN DRAWING THE BODY HERE
@@ -187,7 +191,7 @@ void drawMe(float numPoints, float noiseFactor, float shapeSize, float fluff)
   //println("stretchFactorX: "+stretchFactorX);
   //println("locationX: " + body_location.x + " velocityX: " + body_velocity.x);
   //println("locationY: " + body_location.y + " ||| velocityY: " + body_velocity.y);
-  println(shapeSize + " || " + stretchFactorY + " || " + body_velocity.y + " || " + body_location.y);
+  //println(shapeSize + " || " + stretchFactorY + " || " + body_velocity.y + " || " + body_location.y);
 }
 /*--------------------------------------------------------------------------------*/
 
