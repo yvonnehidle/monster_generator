@@ -57,7 +57,7 @@ void setup()
 {    
   size(800, 600);
   smooth();
-  frameRate(10);
+  frameRate(20);
   
   
   // IMAGES

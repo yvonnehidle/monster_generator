@@ -130,6 +130,18 @@ void drawMe(float numPoints, float noiseFactor, float shapeSize, float fluff)
   float innerRadZero = 0;
   float outerRad = 50;
   float stretchFactorX = 1;
+  
+  
+  // STRETCHY STRETCHY SQUASH
+  if(body_location.y+shapeSize > height && switchDirection == false)
+  {
+    stretchFactorY = stretchFactorY - 0.05;
+  }
+  else if(body_location.y+shapeSize > height && switchDirection == true && stretchFactorY < 1)
+  {
+    stretchFactorY = stretchFactorY + 0.05;
+  }
+
 
   // BEGIN DRAWING THE BODY HERE
   pushMatrix();
@@ -160,16 +172,7 @@ void drawMe(float numPoints, float noiseFactor, float shapeSize, float fluff)
           float perc = map(i, numPoints*fluff, numPoints, 0, 1);
           innerRad = lerp(innerRad, innerRadZero, perc);
         }
-        
-        
-        
-        if(body_location.y+shapeSize > height)
-        {
-            stretchFactorY = stretchFactorY - 0.1;
-        }
-        
-        
-        
+
         // draw the vertex to form the body
         vertex(x*innerRad*stretchFactorX, y*innerRad*stretchFactorY);
       }
