@@ -9,16 +9,7 @@ MONSTER GENERATOR
 
 /*--------------------------------------------------------------------------------*/
 // ALL OUR GLOBAL VARIABLES ARE HERE
-/*--------------------------------------------------------------------------------*/
-// MY CLASSES
-  head myHead;
-  eyes myEyes;
-  body myBody;
-  ears myEars;
-  tail myTail;
-  legs myLegs;
-  
-  
+/*--------------------------------------------------------------------------------*/ 
 // MY IMAGES
   PImage bg;
   
@@ -31,45 +22,33 @@ MONSTER GENERATOR
 
 
 // CRITTER VARIABLES
+// gravity, wind, and life bitches
+  PVector wind;
+  PVector gravity;
 // control the position of the body
-  float bodyX;
-  float bodyY;
-// control the position of the head
-  float headX;
-  float headY;
+  body myBody;
+  PVector body_location;
+  PVector body_velocity;
+  float body_numPoints;
+  float body_noiseFactor;
+  float body_shapeSize;
+  float body_fluff; 
 // control the position of the eyes
+  eyes myEyes;
   float eyesX;
   float eyesY;
+  float eyes_n1;
+  float eyes_n2;
+  int eyes_rollNumber;
 // control the position of the ears
+  ears myEars;
   float earsX;
   float earsY;
-// control the position of the tail
-  float tailX;
-  float tailY;
-// control the position of the legs
-  float legX;
-  float legY;
-  
+  int ears_rollNumber;
 // roll a random color
   int randomC1;
   int randomC2;
   int randomC3;
-  
-// random head variables
-  float head_numPoints;
-  float head_noiseFactor;
-  float head_shapeSize;
-// random body variables
-  float body_numPoints;
-  float body_noiseFactor;
-  float body_shapeSize;
-// random eye variables
-  float eyes_n1;
-  float eyes_n2;
-  int eyes_rollNumber;
-  
-// roll a random number what type of ears
-  int ears_rollNumber = int( random(1,5) );
 /*--------------------------------------------------------------------------------*/
 
 
@@ -78,43 +57,40 @@ void setup()
 {    
   size(800, 600);
   smooth();
-  frameRate(60);
+  frameRate(10);
   
   
   // IMAGES
   bg = loadImage("paperbg.png");
   
   
-  // CLASSES
-  myHead = new head();
-  myEyes = new eyes();
-  myBody = new body();
-  myEars = new ears();
-  myTail = new tail();
-  myLegs = new legs();
-  
-  
-  // POSITION OF CRITTER BODY PARTS
-  // control the position of the body
-    bodyX = 280;
-    bodyY = 250;
-  // control the position of the head
-    headX = bodyX-100;
-    headY = bodyY-80;
-  // control the position of the eyes
-    eyesX = headX-15;
-    eyesY = headY-10;
-  // control the position of the ears
-    earsX = headX-10;
-    earsY = headY-10;
-  // control the position of the tail
-    tailX = bodyX;
-    tailY = bodyY;
-  // control the position of the legs
-    legX = bodyX;
-    legY = bodyY;
+  // BODY PART VARIABLES
+  // gravity, wind, and life bitches
+    wind = new PVector(0.01,0);
+    gravity = new PVector(0,0.1);
+  // body
+    myBody = new body();
+    body_location = new PVector(width/2,height/2);
+    body_velocity = new PVector(0,0);
+    body_numPoints = 3000;
+    body_noiseFactor = 10;
+    body_shapeSize = int( random(60,80) );
+    body_fluff = 10; 
+  // eyes
+    myEyes = new eyes();
+    eyesX = body_location.x;
+    eyesY = body_location.y-10;
+    eyes_n1 = random(20,30);
+    eyes_n2 = random(35,50);
+    eyes_rollNumber = int( random(1,5) );
+  // ears
+    myEars = new ears();
+    earsX = body_location.x-10;
+    earsY = body_location.y-10;
+    ears_rollNumber = int( random(1,5) );
     
-  
+    
+    
   // GENERATE MONSTER COLORS
   randomC1 = int( random(0,300) );
   randomC2 = int( random(0,300) );
@@ -135,21 +111,6 @@ void setup()
     randomC2 = int( random(0,300) );
     randomC3 = int( random(0,300) );
   }
-  
-  
-  // GENERATE RANDOM VARIABLES
-  // head
-    head_numPoints = 3000;
-    head_noiseFactor = 1;
-    head_shapeSize = random(40,60);
-  // body
-    body_numPoints = 3000;
-    body_noiseFactor = 1;
-    body_shapeSize = random(80,100);
-  // eyes
-    eyes_n1 = random(5,15);
-    eyes_n2 = random(3,18);
-    eyes_rollNumber = int( random(1,5) );
 }
 /*--------------------------------------------------------------------------------*/
 
@@ -160,7 +121,7 @@ void draw()
   background(bg);
  
   // IS THE MOUSE OVER THE CRITTER?
-  if (mouseX > bodyX-body_shapeSize && mouseX < bodyX+body_shapeSize && mouseY > bodyY-body_shapeSize && mouseY < bodyY+body_shapeSize)
+  if (mouseX > body_location.x-body_shapeSize && mouseX < body_location.x+body_shapeSize && mouseY > body_location.y-body_shapeSize && mouseY < body_location.y+body_shapeSize)
   {
     overCritter = true;  
     if(!locked) 
@@ -174,7 +135,7 @@ void draw()
   //println(overCritter);
 
 
-  // DRAW OUR CRITTER
+  // DRAW MONSTER
   drawMonster();
   
   
@@ -202,14 +163,27 @@ void draw()
 
 /*--------------------------------------------------------------------------------*/
 void drawMonster()
-{  
+{ 
+  // CRITTER BODY MOVEMENT
+  myBody.applyForce(wind);
+  myBody.applyForce(gravity);
+  myBody.update();
+  myBody.checkEdges(body_shapeSize);
+
+
   // DRAW MONSTER PARTS
-    //myEars.drawMe(ears_rollNumber);
-    //myTail.drawMe();
-    //myLegs.drawMe();
-    myBody.drawMe(body_numPoints, body_noiseFactor, body_shapeSize);
-    myHead.drawMe(head_numPoints, head_noiseFactor, head_shapeSize);
-    myEyes.drawMe(eyes_n1, eyes_n2, eyes_rollNumber);
+  //myEars.drawMe(ears_rollNumber);
+  myBody.drawMe(body_numPoints, body_noiseFactor, body_shapeSize, body_fluff);
+  myEyes.drawMe(eyes_n1, eyes_n2, eyes_rollNumber);
+  
+  
+  // ATTACH BODY PARTS TO THE CRITTER
+  // eyes
+    eyesX = body_location.x;
+    eyesY = body_location.y-10;
+  // ears
+    earsX = body_location.x-10;
+    earsY = body_location.y-10;
 }
 /*--------------------------------------------------------------------------------*/
 
@@ -230,40 +204,36 @@ void mousePressed()
     locked = false;
   }
   
-  xOffset = mouseX-bodyX; 
-  yOffset = mouseY-bodyY; 
+  xOffset = mouseX-body_location.x; 
+  yOffset = mouseY-body_location.y; 
 }
+
+
 
 
 void mouseDragged() 
 {
   if(locked == true) 
   {
-    // control the position of the body
-      bodyX = mouseX-xOffset; 
-      bodyY = mouseY-yOffset; 
-    // control the position of the head
-      headX = bodyX-100;
-      headY = bodyY-80;
-    // control the position of the eyes
-      eyesX = headX-15;
-      eyesY = headY-10;
-    // control the position of the ears
-      earsX = headX-10;
-      earsY = headY-10;
-    // control the position of the tail
-      tailX = bodyX;
-      tailY = bodyY;
-    // control the position of the legs
-      legX = bodyX;
-      legY = bodyY;
+    
+    // LOCK ALL BODY PARTS
+    // body
+      body_location.x = mouseX-xOffset; 
+      body_location.y = mouseY-yOffset; 
+      body_fluff = 0; 
+    // eyes
+      eyesX = body_location.x;
+      eyesY = body_location.y-10;
   }
 }
+
+
 
 
 void mouseReleased() 
 {
   locked = false;
+  body_fluff = 10; 
 }
 /*--------------------------------------------------------------------------------*/
 
@@ -280,7 +250,7 @@ void generateNew()
   randomC3 = int( random(0,300) );
   
   // we don't want white so please reroll
-  if(randomC1>230 && randomC2>230 && randomC3>230)
+  if(randomC1>200 && randomC2>200 && randomC3>200)
   {
     randomC1 = int( random(0,300) );
     randomC2 = int( random(0,300) );
@@ -297,17 +267,13 @@ void generateNew()
 
 
   // GENERATE RANDOM VARIABLES
-  // head
-    head_shapeSize = random(40,60);
   // body
-    body_shapeSize = random(80,100);
+    body_shapeSize = int( random(60,80) );
   // eyes
-    eyes_n1 = random(5,15);
-    eyes_n2 = random(3,18);
+    eyes_n1 = random(20,30);
+    eyes_n2 = random(35,50);
     eyes_rollNumber = int( random(1,5) );
-    
-    
-    // ROLL NUMBER TO DETERMINE EARS
+  // ears
     ears_rollNumber = int( random(1,5) );
 }
 /*--------------------------------------------------------------------------------*/
